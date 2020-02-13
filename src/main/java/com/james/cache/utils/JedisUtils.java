@@ -22,18 +22,12 @@ import redis.clients.jedis.BinaryClient.LIST_POSITION;
 public class JedisUtils {
 
 	private JedisPool pool = null;
-	private String ip = "192.168.42.111";
+//	private String ip = "192.168.42.111";
+	private String ip = "127.0.0.1";
 	private int port = 6379;
-	private String auth = "12345678";
+	private String auth = null;
 
-	/**
-	 * 传入ip和端口号构建redis 连接
-	 * 
-	 * @param ip
-	 *            ip
-	 * @param prot
-	 *            端口
-	 */
+
 	public JedisUtils() {
 		if (pool == null) {
 			JedisPoolConfig config = new JedisPoolConfig();
@@ -1848,6 +1842,7 @@ public class JedisUtils {
 	public static void returnResource(JedisPool pool, Jedis jedis) {
 		if (jedis != null) {
 			pool.returnResource(jedis);
+
 		}
 	}
 }

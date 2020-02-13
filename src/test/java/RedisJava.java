@@ -1,4 +1,6 @@
 import java.util.List;
+
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -33,15 +35,38 @@ public class RedisJava {
         System.out.println("redis 存储的字符串为: "+ jedis.get("runoobkey"));
 
 
-        //存储数据到列表中
-        jedis.lpush("site-list", "Runoob");
-        jedis.lpush("site-list", "Google");
-        jedis.lpush("site-list", "Taobao");
-        // 获取存储的数据并输出
-        List<String> list = jedis.lrange("site-list", 0 ,2);
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println("列表项为: " + list.get(i));
+//        //存储数据到列表中
+//        jedis.lpush("site-list", "Runoob");
+//        jedis.lpush("site-list", "Google");
+//        jedis.lpush("site-list", "Taobao");
+//        // 获取存储的数据并输出
+//        List<String> list = jedis.lrange("site-list", 0 ,2);
+//        for(int i = 0; i < list.size(); i++) {
+//            System.out.println("列表项为: " + list.get(i));
+//        }
+        System.out.println("finish!");
+
+        GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
+        JedisPool jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
+        jedis = null;
+        try {
+            //从连接池获取jedis对象
+            jedis = jedisPool.getResource();
+            //执行操作
+            jedis.set("java", "good");
+            System.out.println(jedis.get("java"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (jedis != null) {
+                //这里使用的close不代表关闭连接，指的是归还资源
+                jedisPool.close();
+                System.out.println("close!");
+
+            }
+
         }
+        System.out.println("all finish!");
 
 
     }
