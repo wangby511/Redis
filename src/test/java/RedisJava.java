@@ -44,29 +44,28 @@ public class RedisJava {
 //        for(int i = 0; i < list.size(); i++) {
 //            System.out.println("列表项为: " + list.get(i));
 //        }
-        System.out.println("finish!");
 
-        GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
-        JedisPool jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
-        jedis = null;
-        try {
-            //从连接池获取jedis对象
-            jedis = jedisPool.getResource();
-            //执行操作
-            jedis.set("java", "good");
-            System.out.println(jedis.get("java"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (jedis != null) {
-                //这里使用的close不代表关闭连接，指的是归还资源
-                jedisPool.close();
-                System.out.println("close!");
-
-            }
-
-        }
-        System.out.println("all finish!");
+//        GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
+//        JedisPool jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
+//        jedis = null;
+//        try {
+//            //从连接池获取jedis对象
+//            jedis = jedisPool.getResource();
+//            //执行操作
+//            jedis.set("java", "good");
+//            System.out.println(jedis.get("java"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (jedis != null) {
+//                //这里使用的close不代表关闭连接，指的是归还资源
+//                jedisPool.close();
+//                System.out.println("close!");
+//
+//            }
+//
+//        }
+//        System.out.println("all finish!");
 
 
     }
